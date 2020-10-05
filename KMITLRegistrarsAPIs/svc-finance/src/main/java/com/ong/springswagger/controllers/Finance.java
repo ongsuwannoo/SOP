@@ -21,51 +21,51 @@ import com.ong.springswagger.repositorys.StudentRepository;
 
 
 @RestController
-@RequestMapping(value = "/student")
-public class StudentController2 {
+@RequestMapping(value = "/Finance")
+public class Finance {
 
 	@Autowired
 	private StudentRepository studentRepository;
 
 	@GetMapping("/")
-	public List<Student> retrieveAllStudents() {
+	public List<Student> retrieveAllBill() {
 		return studentRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Student retrieveStudent(@PathVariable long id) {
+	public Student retrieveBill(@PathVariable long id) {
 		Optional<Student> student = studentRepository.findById(id);
 		return student.get();
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteStudent(@PathVariable long id) {
+	public void deleteBill(@PathVariable long id) {
 		studentRepository.deleteById(id);
 	}
 
-//	@PostMapping("/")
-//	public ResponseEntity<Object> createStudent(@RequestBody Student student) {
-//		Student savedStudent = studentRepository.save(student);
-//
-//		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-//				.buildAndExpand(savedStudent.getId()).toUri();
-//
-//		return ResponseEntity.created(location).build();
-//
-//	}
+	@PostMapping("/")
+	public ResponseEntity<Object> createBill(@RequestBody Student student) {
+		Student savedStudent = studentRepository.save(student);
+
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(savedStudent.getId()).toUri();
+
+		return ResponseEntity.created(location).build();
+
+	}
 	
-//	@PutMapping("/{id}")
-//	public ResponseEntity<Object> updateStudent(@RequestBody Student student, @PathVariable long id) {
-//
-//		Optional<Student> studentOptional = studentRepository.findById(id);
-//
-//		if (!studentOptional.isPresent())
-//			return ResponseEntity.notFound().build();
-//
-//		student.setId(id);
-//		
-//		studentRepository.save(student);
-//
-//		return ResponseEntity.noContent().build();
-//	}
+	@PutMapping("/{id}")
+	public ResponseEntity<Object> updateBill(@RequestBody Student student, @PathVariable long id) {
+
+		Optional<Student> studentOptional = studentRepository.findById(id);
+
+		if (!studentOptional.isPresent())
+			return ResponseEntity.notFound().build();
+
+		student.setId(id);
+		
+		studentRepository.save(student);
+
+		return ResponseEntity.noContent().build();
+	}
 }

@@ -16,63 +16,55 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.ong.springswagger.models.Student;
-import com.ong.springswagger.repositorys.StudentRepository;
+import com.ong.springswagger.models.Course;
+import com.ong.springswagger.repositorys.CourseRepository;
 
 
 @RestController
-@RequestMapping(value = "/students")
-public class StudentController {
+@RequestMapping(value = "/course")
+public class CourseController {
 
 	@Autowired
-	private StudentRepository studentRepository;
+	private CourseRepository courseRepository;
 
 	@GetMapping("/")
-	public List<Student> retrieveAllStudents() {
-		return studentRepository.findAll();
+	public List<Course> retrieveAllCourses() {
+		return courseRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Student retrieveStudent(@PathVariable long id) {
-		Optional<Student> student = studentRepository.findById(id);
-		return student.get();
+	public Course retrieveCourse(@PathVariable long id) {
+		Optional<Course> course = courseRepository.findById(id);
+		return course.get();
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteStudent(@PathVariable long id) {
-		studentRepository.deleteById(id);
+	public void deleteCourse(@PathVariable long id) {
+		courseRepository.deleteById(id);
 	}
 
-	@PostMapping("register/")
-	public ResponseEntity<Object> registerStudent(@RequestBody Student student) {
-		Student savedStudent = studentRepository.save(student);
+	@PostMapping("/")
+	public ResponseEntity<Object> createCourse(@RequestBody Course course) {
+		Course savedCourse = courseRepository.save(course);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(savedStudent.getId()).toUri();
+				.buildAndExpand(savedCourse.getId()).toUri();
 
 		return ResponseEntity.created(location).build();
 
 	}
 	
-	@PostMapping("login/")
-	public String loginStudent(@RequestBody Student student) {
-		
-
-		return "success";
-
-	}
-	
 	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateStudent(@RequestBody Student student, @PathVariable long id) {
+	public ResponseEntity<Object> updateStudent(@RequestBody Course course, @PathVariable long id) {
 
-		Optional<Student> studentOptional = studentRepository.findById(id);
+		Optional<Course> courseOptional = courseRepository.findById(id);
 
-		if (!studentOptional.isPresent())
+		if (!courseOptional.isPresent())
 			return ResponseEntity.notFound().build();
 
-		student.setId(id);
+		course.setId(id);
 		
-		studentRepository.save(student);
+		courseRepository.save(course);
 
 		return ResponseEntity.noContent().build();
 	}
