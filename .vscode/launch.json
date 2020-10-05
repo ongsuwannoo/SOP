@@ -6,6 +6,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - ServiceDiscoveryApplication",
+            "request": "launch",
+            "mainClass": "com.ong.discovery.ServiceDiscoveryApplication"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"
