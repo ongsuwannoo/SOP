@@ -43,14 +43,22 @@ public class StudentController {
 		studentRepository.deleteById(id);
 	}
 
-	@PostMapping("/")
-	public ResponseEntity<Object> createStudent(@RequestBody Student student) {
+	@PostMapping("register/")
+	public ResponseEntity<Object> registerStudent(@RequestBody Student student) {
 		Student savedStudent = studentRepository.save(student);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(savedStudent.getId()).toUri();
 
 		return ResponseEntity.created(location).build();
+
+	}
+	
+	@PostMapping("login/")
+	public String loginStudent(@RequestBody Student student) {
+		
+
+		return "success";
 
 	}
 	

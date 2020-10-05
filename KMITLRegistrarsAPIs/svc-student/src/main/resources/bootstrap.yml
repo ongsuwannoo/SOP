@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      name: regsiter
+      name: student
       discovery:
         enabled: true
         service-id: config-server
